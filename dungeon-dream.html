@@ -26,6 +26,34 @@
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(232,255,71,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,255,71,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: -1;
+      animation: slideGrid 12s linear infinite;
+    }
+
+    @keyframes slideGrid {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 0 60px;
+      }
     }
 
     /* ── CURSOR ── */
@@ -73,14 +101,33 @@
     .nav-back:hover { color: var(--muted); }
 
     /* ── PAGE CONTENT ── */
-    section { padding: 8rem 4rem 4rem; }
+    section { padding: 8rem 4rem 0; }
 
-    .project-header {
-      max-width: 1000px;
+    section:first-of-type {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
-    .project-emoji { font-size: 3rem; margin-bottom: 1rem; }
+    section:first-of-type > div:last-child {
+      aspect-ratio: 16/9;
+      background: var(--surface);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6);
+    }
+
+    .project-header {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
     .project-title {
       font-family: 'Bebas Neue', sans-serif;
@@ -116,24 +163,180 @@
 
     .content-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      max-width: 1200px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      max-width: 1400px;
       margin: 0 auto 4rem;
+      align-items: start;
     }
+
+    .content-section {
+      background: var(--surface);
+      border: 2px solid;
+  padding: 1.2rem 1.2rem 0 1.2rem;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: none;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-section.skills-box { border-color: #ff6b8a; }
+    .content-section.challenges-box { border-color: #6ba3ff; }
+    .content-section.role-box { border-color: #e8ff47; }
 
     .content-section h3 {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       letter-spacing: 1px;
-      margin-bottom: 1.5rem;
-      color: var(--accent);
+      margin-bottom: 1rem;
+      margin-top: 0;
     }
 
-    .content-section p {
+    .content-section.skills-box h3 { color: #ff6b8a; }
+    .content-section.challenges-box h3 { color: #6ba3ff; }
+    .content-section.role-box h3 { color: #e8ff47; }
+
+    .content-inner-box {
+      border: 2px solid;
+      padding: 0.9rem;
+      border-radius: 6px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+
       color: var(--muted);
       line-height: 1.8;
-      margin-bottom: 1rem;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      margin-top: 0;
+      text-align: justify;
+    }
+
+    .content-section.skills-box p {
+      text-align: left;
+    }
+
+    .content-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .skills-section {
+      display: none;
+    }
+
+    .images-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .image-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .image-card-img {
+      width: 45%;
+      aspect-ratio: 16/9;
+      background: rgba(232,255,71,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .image-card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .image-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .image-card-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .image-card:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    /* ── ANIMATED CONNECTING LINES ── */
+    .connecting-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .connecting-line-main {
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 8 10;
+      animation: dataFlow 1.1s linear infinite;
+    }
+
+    .connecting-line-glow {
+      fill: none;
+      stroke-width: 8;
+      opacity: 0.14;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .connecting-line-main.yellow {
+      stroke: #e8ff47;
+    }
+
+    .connecting-line-glow.yellow {
+      stroke: #e8ff47;
+    }
+
+    .connecting-line-main.blue {
+      stroke: #6ba3ff;
+    }
+
+    .connecting-line-glow.blue {
+      stroke: #6ba3ff;
+    }
+
+    .connecting-line-main.pink {
+      stroke: #ff6b8a;
+    }
+
+    .connecting-line-glow.pink {
+      stroke: #ff6b8a;
+    }
+
+    @keyframes dataFlow {
+      from { stroke-dashoffset: 0; }
+      to   { stroke-dashoffset: -36; }
     }
 
     .skills-section {
@@ -233,6 +436,16 @@
   <div id="cursor"></div>
   <div id="page-transition" class="page-transition" aria-hidden="true"></div>
 
+  <!-- CONNECTING LINES SVG -->
+  <svg class="connecting-lines" aria-hidden="true" id="connecting-svg">
+    <path class="connecting-line-glow yellow" id="line-yellow-glow" />
+    <path class="connecting-line-main yellow" id="line-yellow" />
+    <path class="connecting-line-glow blue" id="line-blue-glow" />
+    <path class="connecting-line-main blue" id="line-blue" />
+    <path class="connecting-line-glow pink" id="line-pink-glow" />
+    <path class="connecting-line-main pink" id="line-pink" />
+  </svg>
+
   <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">GD // Portfolio</a>
@@ -264,45 +477,85 @@
   <!-- CONTENT -->
   <section style="padding-top: 2rem;">
     <div class="content-grid">
-      <div class="content-section">
-        <h3>Problèmes Rencontrés</h3>
-        <p>
-          Raconter une histoire sans dialogues explicites a été le défi principal. Il fallait utiliser l'environnement et la mise en scène pour communiquer.
-        </p>
-        <p>
-          Créer des moments d'émotion forte dans un contexte de jeu interactif requiert une conception très précise des séquences clés.
-        </p>
-        <p>
-          Équilibrer l'exploration libre avec les moments scriptés a demandé beaucoup d'itération et de playtesting.
-        </p>
+      <!-- Skills Box -->
+      <div class="content-section skills-box">
+        <h3>Technical Skills :</h3>
+        <div class="content-inner-box">
+          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I learned how to tell a story through environmental design.</p>
+        </div>
       </div>
 
-      <div class="content-section">
-        <h3>Mon Rôle</h3>
-        <p>
-          J'ai conçu la structure narrative globale et défini les arcs émotionnels du jeu.
-        </p>
-        <p>
-          J'ai créé la plupart des niveaux et orchestré les séquences cinématiques pour maximiser l'impact émotionnel.
-        </p>
-        <p>
-          J'ai aussi programmé les systèmes de dialogue et d'interactions élaborés qui font fonctionner la narration.
-        </p>
+      <!-- Problèmes Rencontrés Box -->
+      <div class="content-section challenges-box">
+        <h3>Challenges Faced :</h3>
+        <div class="content-inner-box">
+          <p>
+            <span style="color: rgba(232,255,71,0.6);">✦</span> L'un des plus grands défis lors du développement était de créer un système fluide et responsif.
+          </p>
+          <p>
+            <span style="color: rgba(232,255,71,0.6);">✦</span> Nous avons dû itérer plusieurs fois pour que le rendu soit parfait et équilibré.
+          </p>
+          <p>
+            <span style="color: rgba(232,255,71,0.6);">✦</span> Un autre défi était de maintenir les performances tout en ajoutant de la complexité.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <!-- SKILLS -->
-    <div class="skills-section">
-      <h3>Technologies Utilisées</h3>
-      <div class="skills-list">
-        <div class="skill-tag">Unity</div>
-        <div class="skill-tag">C#</div>
-        <div class="skill-tag">Narrative Design</div>
-        <div class="skill-tag">Story Scripting</div>
+      <!-- Mon Rôle Box -->
+      <div class="content-section role-box">
+        <h3>My role :</h3>
+        <div class="content-inner-box">
+          <p>
+            J'ai travaillé sur la conception et l'implémentation des mécaniques principales.
+          </p>
+          <p>
+            J'ai géré l'intégration des systèmes et assuré la cohérence du projet.
+          </p>
+          <p>
+            J'ai aussi participé aux itérations pour améliorer l'expérience utilisateur.
+          </p>
+        </div>
       </div>
     </div>
 
     <a href="index.html" class="btn-back">← Return to Portfolio</a>
+  </section>
+
+  <!-- IMAGES -->
+  <section style="padding-top: 2rem;">
+    <div class="images-grid">
+      <div class="image-card">
+        <div class="image-card-img">[Image 1]</div>
+        <div class="image-card-content">
+          <h4 class="image-card-title">Image Title 1</h4>
+          <p class="image-card-desc">Description for the first image goes here. This is a sample text that describes the gameplay or feature.</p>
+        </div>
+      </div>
+
+      <div class="image-card">
+        <div class="image-card-img">[Image 2]</div>
+        <div class="image-card-content">
+          <h4 class="image-card-title">Image Title 2</h4>
+          <p class="image-card-desc">Description for the second image goes here. This is a sample text that describes the gameplay or feature.</p>
+        </div>
+      </div>
+
+      <div class="image-card">
+        <div class="image-card-img">[Image 3]</div>
+        <div class="image-card-content">
+          <h4 class="image-card-title">Image Title 3</h4>
+          <p class="image-card-desc">Description for the third image goes here. This is a sample text that describes the gameplay or feature.</p>
+        </div>
+      </div>
+
+      <div class="image-card">
+        <div class="image-card-img">[Image 4]</div>
+        <div class="image-card-content">
+          <h4 class="image-card-title">Image Title 4</h4>
+          <p class="image-card-desc">Description for the fourth image goes here. This is a sample text that describes the gameplay or feature.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <footer style="display:flex; justify-content:space-between; align-items:center; padding:20px 40px; font-size:14px;">
@@ -317,6 +570,68 @@
   </footer>
 
   <script>
+    // Function to draw connecting lines
+    function drawConnectingLines() {
+      const svg = document.getElementById('connecting-svg');
+      const imageElement = document.querySelector('section:first-of-type > div:last-child');
+      const skillsBox = document.querySelector('.content-section.skills-box');
+      const challengesBox = document.querySelector('.content-section.challenges-box');
+      const roleBox = document.querySelector('.content-section.role-box');
+
+      if (!imageElement || !skillsBox || !challengesBox || !roleBox) return;
+
+      // Get viewport dimensions
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      // Get positions relative to viewport
+      const imageRect = imageElement.getBoundingClientRect();
+      const skillsRect = skillsBox.getBoundingClientRect();
+      const challengesRect = challengesBox.getBoundingClientRect();
+      const roleRect = roleBox.getBoundingClientRect();
+
+      // Start point: center bottom of image
+      const startX = imageRect.left + imageRect.width / 2;
+      const startY = imageRect.bottom;
+
+      // End points: center top of each box
+      const skillsX = skillsRect.left + skillsRect.width / 2;
+      const skillsY = skillsRect.top;
+
+      const challengesX = challengesRect.left + challengesRect.width / 2;
+      const challengesY = challengesRect.top;
+
+      const roleX = roleRect.left + roleRect.width / 2;
+      const roleY = roleRect.top;
+
+      // Set SVG viewBox based on viewport
+      svg.setAttribute('viewBox', `0 0 ${viewportWidth} ${viewportHeight}`);
+
+      // Calculate midpoint distances for each line at different heights
+      const yellowMidDistance = Math.abs(skillsY - startY) * 0.25;   // 25% down
+      const blueMidDistance = Math.abs(challengesY - startY) * 0.5;  // 50% down
+      const pinkMidDistance = Math.abs(roleY - startY) * 0.75;       // 75% down
+
+      // Create paths with 90-degree angles only
+      // Go down, then horizontal, then down to box top
+      const yellowPath = `M ${startX} ${startY} L ${startX} ${startY + yellowMidDistance} L ${skillsX} ${startY + yellowMidDistance} L ${skillsX} ${skillsY}`;
+      const bluePath = `M ${startX} ${startY} L ${startX} ${startY + blueMidDistance} L ${challengesX} ${startY + blueMidDistance} L ${challengesX} ${challengesY}`;
+      const pinkPath = `M ${startX} ${startY} L ${startX} ${startY + pinkMidDistance} L ${roleX} ${startY + pinkMidDistance} L ${roleX} ${roleY}`;
+
+      // Set glow and main paths
+      document.getElementById('line-yellow-glow').setAttribute('d', yellowPath);
+      document.getElementById('line-yellow').setAttribute('d', yellowPath);
+      document.getElementById('line-blue-glow').setAttribute('d', bluePath);
+      document.getElementById('line-blue').setAttribute('d', bluePath);
+      document.getElementById('line-pink-glow').setAttribute('d', pinkPath);
+      document.getElementById('line-pink').setAttribute('d', pinkPath);
+    }
+
+    // Initial draw and redraw on scroll/resize
+    window.addEventListener('load', drawConnectingLines);
+    window.addEventListener('resize', drawConnectingLines);
+    document.addEventListener('scroll', drawConnectingLines);
+
     // Curseur custom
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
