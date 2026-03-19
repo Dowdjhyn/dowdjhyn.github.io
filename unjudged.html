@@ -151,8 +151,12 @@
       font-size: 1.1rem;
       line-height: 1.8;
       margin-bottom: 3rem;
-      max-width: 800px;
+      max-width: none;
       text-align: justify;
+      background: var(--surface);
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.8rem;
     }
 
     .project-video {
@@ -293,7 +297,7 @@
 
     .image-card-content {
       width: 48.5%;
-      padding: 1.5rem;
+      padding: 1.8rem;
       display: flex;
       flex-direction: column;
       flex-grow: 0;
@@ -339,15 +343,15 @@
 
     .image-card-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
+      font-size: 2.4rem;
       letter-spacing: 1px;
       color: var(--accent);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem;
     }
 
     .image-card-content {
       width: 48.5%;
-      padding: 1.5rem;
+      padding: 1.8rem;
       display: flex;
       flex-direction: column;
       flex-grow: 0;
@@ -355,9 +359,22 @@
 
     .image-card-desc {
       color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.6;
+      font-size: 1.05rem;
+      line-height: 1.7;
       margin: 0;
+    }
+
+    .image-card-list {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0;
+      padding-left: 1.5rem;
+      list-style: disc;
+    }
+
+    .image-card-list li {
+      margin-bottom: 0.4rem;
     }
 
     .image-card:nth-child(even) {
@@ -370,7 +387,7 @@
 
     /* ── ANIMATED CONNECTING LINES ── */
     .connecting-lines {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
@@ -499,6 +516,137 @@
       overflow: hidden;
     }
 
+    /* ── LEGAL MODAL ── */
+    .legal-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      z-index: 9998;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+      padding: 2rem;
+      pointer-events: none;
+    }
+
+    .legal-modal.active {
+      display: flex;
+      pointer-events: auto;
+    }
+
+    .legal-modal.closing {
+      display: flex;
+      animation: fadeOut 0.3s ease forwards;
+    }
+
+    .legal-modal-content {
+      background: linear-gradient(135deg, rgba(18,18,26,0.95), rgba(30,20,40,0.95));
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 40px rgba(232,255,71,0.3), inset 0 0 40px rgba(232,255,71,0.05);
+      border-radius: 8px;
+      max-width: 700px;
+      max-height: 80vh;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    .legal-modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .legal-modal-content::-webkit-scrollbar-track {
+      background: rgba(232,255,71,0.1);
+    }
+
+    .legal-modal-content::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    .legal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--accent);
+      background: linear-gradient(90deg, rgba(232,255,71,0.05), transparent);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .legal-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(232,255,71,0.5);
+      margin: 0;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .close-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 0 20px rgba(232,255,71,0.5);
+    }
+
+    .legal-body {
+      padding: 2rem;
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    .legal-section {
+      margin-bottom: 2rem;
+    }
+
+    .legal-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-section h3 {
+      color: var(--accent);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(232,255,71,0.3);
+    }
+
+    .legal-section p {
+      color: var(--muted);
+      margin: 0.5rem 0;
+    }
+
+    .legal-section strong {
+      color: var(--accent);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.95); }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 1.5rem 2rem; }
@@ -551,12 +699,12 @@
       <div class="content-section skills-box">
         <h3>Technical Skills :</h3>
         <div class="content-inner-box">
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I developed many enemy types with their own behavior.</p>
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I implemented an adaptable wave system that allows dynamic enemy spawning, with the ability to adjust the quantity of each enemy type and the number of waves.</p>
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I made a combo moveset for the player character, synchronised with animations and visual effects.</p>
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I designed and implemented a health and damage system, with different damage types.</p>
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I created a simple interactive main menu.</p>
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I introduced environmental systems like doors and traps.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I developed many enemy types with their own behavior.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I implemented an adaptable wave system that allows dynamic enemy spawning, with the ability to adjust the quantity of each enemy type and the number of waves.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I made a combo moveset for the player character, synchronised with animations and visual effects.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I designed and implemented a health and damage system, with different damage types.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I created a simple interactive main menu.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I introduced environmental systems like doors and traps.</p>
         </div>
       </div>
 
@@ -564,12 +712,12 @@
       <div class="content-section challenges-box">
         <h3>Challenges Faced :</h3>
         <div class="content-inner-box">
-          <p><span style="color: rgba(232,255,71,0.6);">✦</span> One of the biggest challenges was to create a system that allows controlling two entities with a single controller.
+          <p><span style="color: rgba(107,163,255,0.6);">✦</span> One of the biggest challenges was to create a system that allows controlling two entities with a single controller.
             Unreal Engine is not designed for this by default, so I had to be creative to work around the limitations and make 
             the gameplay fluid and natural.</p>
-          <p><span style="color: rgba(232,255,71,0.6);">✦</span> Another challenge was to organize all the code. It was the first time I worked on a project of this scale, and it's easy
+          <p><span style="color: rgba(107,163,255,0.6);">✦</span> Another challenge was to organize all the code. It was the first time I worked on a project of this scale, and it's easy
             to get lost mostly because I wanted to separate the code into multiple files to keep it clean.</p>
-          <p><span style="color: rgba(232,255,71,0.6);">✦</span> Another challenge was balancing the progressive difficulty to keep players engaged without frustrating them.</p>
+          <p><span style="color: rgba(107,163,255,0.6);">✦</span> Another challenge was balancing the progressive difficulty to keep players engaged without frustrating them.</p>
         </div>
       </div>
 
@@ -598,8 +746,13 @@
         </div>
         <div class="image-card-middle"></div>
         <div class="image-card-content">
-          <h4 class="image-card-title">Full Animated Enemies</h4>
-          <p class="image-card-desc">Description for the first image goes here. This is a sample text that describes the gameplay or feature.</p>
+          <h4 class="image-card-title">Fully Animated Enemies : </h4>
+          <p class="image-card-desc">As I mentioned earlier, our enemies are fully animated with their movements and attacks synchronized with their effects. Each enemy possesses :</p>
+          <ul class="image-card-list">
+            <li>its own attack ;</li>
+            <li>its own behavior tree ;</li>
+            <li>its own animations ;</li>
+          </ul>
         </div>
       </div>
 
@@ -611,8 +764,8 @@
         </div>
         <div class="image-card-middle"></div>
         <div class="image-card-content">
-          <h4 class="image-card-title">Combat </h4>
-          <p class="image-card-desc">Description for the first image goes here. This is a sample text that describes the gameplay or feature.</p>
+          <h4 class="image-card-title">Combat System : </h4>
+          <p class="image-card-desc">In the center you can see our typical archer enemy. With your left joystick you control your body (in red) and with your right joystick you control your soul (in blue). The body can perform a combo and marks enemies, while the area around the soul allows you to inflict damage from a distance or regain life thanks to this mark. Still under development, but very promising!!</p>
         </div>
       </div>
 
@@ -639,13 +792,56 @@
   <footer style="display:flex; justify-content:space-between; align-items:center; padding:20px 40px; font-size:14px;">
     <div>
       <span>© 2026 Andrew Malaure :</span> |
-      <a href="mentions.html" style="text-decoration:underline;">Mentions légales</a>
+      <a href="#" id="legal-link" style="text-decoration:underline; cursor:pointer;">Mentions légales</a>
     </div>
     <div>
       Contact :
       <a href="mailto:andrew.enguerrand@gmail.com">andrew.enguerrand@gmail.com</a>
     </div>
   </footer>
+
+  <!-- LEGAL MODAL -->
+  <div id="legal-modal" class="legal-modal">
+    <div class="legal-modal-content">
+      <div class="legal-header">
+        <h2>▌ MENTIONS LÉGALES</h2>
+        <button id="close-legal" class="close-btn">✕ CLOSE</button>
+      </div>
+      <div class="legal-body">
+        <div class="legal-section">
+          <h3>INFORMATIONS GÉNÉRALES</h3>
+          <p><strong>Nom :</strong> Andrew Malaure</p>
+          <p><strong>Adresse email :</strong> Disponible via la section contact en bas de page.</p>
+          <p><strong>Type de site :</strong> Portfolio personnel – Game Designer & Developer</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>PROPRIÉTÉ INTELLECTUELLE</h3>
+          <p>Le contenu, le design, les graphiques et tous les éléments visuels de ce site sont la propriété intellectuelle d'Andrew Malaure. Toute reproduction, distribution ou utilisation sans autorisation préalable est interdite.</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>FONDEMENTS JURIDIQUES</h3>
+          <p>Ce site est conforme à la législation française et européenne, notamment au <strong>RGPD</strong> (Règlement Général sur la Protection des Données).</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>DONNÉES PERSONNELLES</h3>
+          <p>Les données collectées via formulaires ou email sont traitées de manière confidentielle et ne seront jamais partagées avec des tiers. Vous disposez d'un droit d'accès, de modification et de suppression de vos données.</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>LIMITATION DE RESPONSABILITÉ</h3>
+          <p>Ce site est fourni "tel quel" sans garantie d'aucune sorte. L'auteur ne peut être tenu responsable des dommages directs ou indirects résultant de l'utilisation du site.</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>CONTACT & DEMANDES LÉGALES</h3>
+          <p>Pour toute question, demande d'accès RGPD ou réclamation, utilisez la section contact en bas de page.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Function to draw connecting lines
@@ -658,43 +854,46 @@
 
       if (!imageElement || !skillsBox || !challengesBox || !roleBox) return;
 
-      // Get viewport dimensions
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
+      // Get document dimensions
+      const docHeight = document.documentElement.scrollHeight;
+      const docWidth = document.documentElement.scrollWidth;
 
-      // Get positions relative to viewport
+      // Get positions in document (not viewport)
       const imageRect = imageElement.getBoundingClientRect();
       const skillsRect = skillsBox.getBoundingClientRect();
       const challengesRect = challengesBox.getBoundingClientRect();
       const roleRect = roleBox.getBoundingClientRect();
 
-      // Start point: center bottom of image
-      const startX = imageRect.left + imageRect.width / 2;
-      const startY = imageRect.bottom;
+      // Convert to document coordinates by adding scroll offset
+      const scrollY = window.scrollY;
+      
+      const imageBottom = imageRect.bottom + scrollY;
+      const imageX = imageRect.left + imageRect.width / 2;
 
-      // End points: center top of each box
       const skillsX = skillsRect.left + skillsRect.width / 2;
-      const skillsY = skillsRect.top;
+      const skillsY = skillsRect.top + scrollY;
 
       const challengesX = challengesRect.left + challengesRect.width / 2;
-      const challengesY = challengesRect.top;
+      const challengesY = challengesRect.top + scrollY;
 
       const roleX = roleRect.left + roleRect.width / 2;
-      const roleY = roleRect.top;
+      const roleY = roleRect.top + scrollY;
 
-      // Set SVG viewBox based on viewport
-      svg.setAttribute('viewBox', `0 0 ${viewportWidth} ${viewportHeight}`);
+      // Set SVG viewBox and dimensions based on document
+      svg.setAttribute('viewBox', `0 0 ${docWidth} ${docHeight}`);
+      svg.setAttribute('width', docWidth);
+      svg.setAttribute('height', docHeight);
 
       // Calculate midpoint distances for each line at different heights
-      const yellowMidDistance = Math.abs(skillsY - startY) * 0.25;   // 25% down
-      const blueMidDistance = Math.abs(challengesY - startY) * 0.5;  // 50% down
-      const pinkMidDistance = Math.abs(roleY - startY) * 0.75;       // 75% down
+      const yellowMidDistance = Math.abs(skillsY - imageBottom) * 0.25;   // 25% down
+      const blueMidDistance = Math.abs(challengesY - imageBottom) * 0.5;  // 50% down
+      const pinkMidDistance = Math.abs(roleY - imageBottom) * 0.75;       // 75% down
 
       // Create paths with 90-degree angles only
       // Go down, then horizontal, then down to box top
-      const yellowPath = `M ${startX} ${startY} L ${startX} ${startY + yellowMidDistance} L ${skillsX} ${startY + yellowMidDistance} L ${skillsX} ${skillsY}`;
-      const bluePath = `M ${startX} ${startY} L ${startX} ${startY + blueMidDistance} L ${challengesX} ${startY + blueMidDistance} L ${challengesX} ${challengesY}`;
-      const pinkPath = `M ${startX} ${startY} L ${startX} ${startY + pinkMidDistance} L ${roleX} ${startY + pinkMidDistance} L ${roleX} ${roleY}`;
+      const yellowPath = `M ${imageX} ${imageBottom} L ${imageX} ${imageBottom + yellowMidDistance} L ${skillsX} ${imageBottom + yellowMidDistance} L ${skillsX} ${skillsY}`;
+      const bluePath = `M ${imageX} ${imageBottom} L ${imageX} ${imageBottom + blueMidDistance} L ${challengesX} ${imageBottom + blueMidDistance} L ${challengesX} ${challengesY}`;
+      const pinkPath = `M ${imageX} ${imageBottom} L ${imageX} ${imageBottom + pinkMidDistance} L ${roleX} ${imageBottom + pinkMidDistance} L ${roleX} ${roleY}`;
 
       // Set glow and main paths
       document.getElementById('line-yellow-glow').setAttribute('d', yellowPath);
@@ -747,6 +946,34 @@
         e.preventDefault();
         startPageTransition(destination);
       });
+    });
+
+    // Modal Mentions Légales
+    const legalModal = document.getElementById('legal-modal');
+    const legalLink = document.getElementById('legal-link');
+    const closeBtn = document.getElementById('close-legal');
+
+    legalLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      legalModal.classList.remove('closing');
+      legalModal.classList.add('active');
+    });
+
+    const closeLegalModal = () => {
+      if (!legalModal.classList.contains('active') || legalModal.classList.contains('closing')) return;
+      legalModal.classList.add('closing');
+      setTimeout(() => {
+        legalModal.classList.remove('active', 'closing');
+      }, 300);
+    };
+
+    closeBtn.addEventListener('click', closeLegalModal);
+
+    // Close modal when clicking outside content
+    legalModal.addEventListener('click', (e) => {
+      if (e.target === legalModal) {
+        closeLegalModal();
+      }
     });
   </script>
 
