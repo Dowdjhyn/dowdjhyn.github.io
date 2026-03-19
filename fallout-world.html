@@ -149,7 +149,11 @@
       font-size: 1.1rem;
       line-height: 1.8;
       margin-bottom: 3rem;
-      max-width: 800px;
+      max-width: none;
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1.8rem;
+      text-align: justify;
     }
 
     .project-video {
@@ -245,7 +249,7 @@
     }
 
     .image-card-img {
-      width: 45%;
+      width: 48.5%;
       aspect-ratio: 16/9;
       background: rgba(232,255,71,0.05);
       display: flex;
@@ -254,28 +258,77 @@
       color: var(--muted);
       font-size: 0.9rem;
       flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .image-card-middle {
+      width: calc(3% + 50px);
+      background: transparent;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-card-middle::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: calc(100% + 16px);
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,107,138,0.8) 0,
+        rgba(255,107,138,0.8) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+      animation: dashFlow 2s linear infinite;
+    }
+
+    @keyframes dashFlow {
+      0% { transform: translateX(-50%) translateY(0); }
+      100% { transform: translateX(-50%) translateY(16px); }
     }
 
     .image-card-content {
-      padding: 1.5rem;
+      width: 48.5%;
+      padding: 1.8rem;
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
+      flex-grow: 0;
     }
 
     .image-card-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
+      font-size: 2.4rem;
       letter-spacing: 1px;
       color: var(--accent);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem;
     }
 
     .image-card-desc {
       color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.6;
+      font-size: 1.05rem;
+      line-height: 1.7;
       margin: 0;
+    }
+
+    .image-card-list {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0;
+      padding-left: 1.5rem;
+      list-style: disc;
+    }
+
+    .image-card-list li {
+      margin-bottom: 0.4rem;
     }
 
     .image-card:nth-child(even) {
@@ -422,6 +475,137 @@
       overflow: hidden;
     }
 
+    /* ── LEGAL MODAL ── */
+    .legal-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      z-index: 9998;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+      padding: 2rem;
+      pointer-events: none;
+    }
+
+    .legal-modal.active {
+      display: flex;
+      pointer-events: auto;
+    }
+
+    .legal-modal.closing {
+      display: flex;
+      animation: fadeOut 0.3s ease forwards;
+    }
+
+    .legal-modal-content {
+      background: linear-gradient(135deg, rgba(18,18,26,0.95), rgba(30,20,40,0.95));
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 40px rgba(232,255,71,0.3), inset 0 0 40px rgba(232,255,71,0.05);
+      border-radius: 8px;
+      max-width: 700px;
+      max-height: 80vh;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    .legal-modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .legal-modal-content::-webkit-scrollbar-track {
+      background: rgba(232,255,71,0.1);
+    }
+
+    .legal-modal-content::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    .legal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--accent);
+      background: linear-gradient(90deg, rgba(232,255,71,0.05), transparent);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .legal-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(232,255,71,0.5);
+      margin: 0;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .close-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 0 20px rgba(232,255,71,0.5);
+    }
+
+    .legal-body {
+      padding: 2rem;
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    .legal-section {
+      margin-bottom: 2rem;
+    }
+
+    .legal-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-section h3 {
+      color: var(--accent);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(232,255,71,0.3);
+    }
+
+    .legal-section p {
+      color: var(--muted);
+      margin: 0.5rem 0;
+    }
+
+    .legal-section strong {
+      color: var(--accent);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.95); }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 1.5rem 2rem; }
@@ -459,10 +643,10 @@
       <h1 class="project-title">Fallout World</h1>
       
       <p class="project-intro">
-        Fallout World est un environnement narratif immersif inspiré par l'univers post-apocalyptique. Le projet explore la conception de niveaux, la narration environnementale et l'création d'atmosphère à travers l'éclairage et la modularité.
+        In this level design project, I explored immersive narrative design inspired by the post-apocalyptic Fallout universe. The work focuses on level design principles, environmental storytelling, and atmospheric creation through lighting and modularity.
       </p>
     </div>
-    <div><p>[Galerie d'images/vidéo du niveau ici]</p></div>
+    <div style="background: var(--surface); border-radius: 8px; box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6); overflow: hidden;"><img src="images/Fallout_Level.png" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
   </section>
 
   <!-- CONTENT -->
@@ -472,96 +656,117 @@
       <div class="content-section skills-box">
         <h3>Technical Skills :</h3>
         <div class="content-inner-box">
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I introduced different ways to discover the level, with many paths.</p>
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I tried as much as possible to use important design concepts such as the golden path and optional paths, as well as the player's point of view and different reward values.</p>
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I used lighting techniques to improve guidance.</p>
-          <p><span style="color: rgba(255,107,138,0.6);">✦</span> I separated gameplay into 3 phases with distinct objectives — exploration, puzzle-solving, and combat.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I introduced different ways to discover the level, with many paths.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I tried as much as possible to use important design concepts such as the golden path and optional paths, as well as the player's point of view and different reward values.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I used lighting techniques to improve guidance.</p>
+          <p><span style="color: rgba(232,255,71,0.6);">✦</span> I separated gameplay into 3 phases with distinct objectives — exploration, puzzle-solving, and combat.</p>
         </div>
       </div>
 
-      <!-- Problèmes Rencontrés Box -->
+      <!-- Challenges Faced Box -->
       <div class="content-section challenges-box">
         <h3>Challenges Faced :</h3>
         <div class="content-inner-box">
           <p>
-            <span style="color: rgba(232,255,71,0.6);">✦</span> L'un des plus grands défis lors du développement était de créer un système fluide et responsif.
+            <span style="color: rgba(107,163,255,0.6);">✦</span> A major challenge was to suggest a path to take while leaving the player with freedom.
           </p>
           <p>
-            <span style="color: rgba(232,255,71,0.6);">✦</span> Nous avons dû itérer plusieurs fois pour que le rendu soit parfait et équilibré.
+            <span style="color: rgba(107,163,255,0.6);">✦</span> Another challenge was to succeed in positioning and making the player look where I wanted.
           </p>
           <p>
-            <span style="color: rgba(232,255,71,0.6);">✦</span> Un autre défi était de maintenir les performances tout en ajoutant de la complexité.
+            <span style="color: rgba(107,163,255,0.6);">✦</span> It was also challenging to find the right dimensions for each space, without giving a sense of slowness while maintaining an unusually large environment.
           </p>
         </div>
       </div>
 
-      <!-- Mon Rôle Box -->
+      <!-- My Role Box -->
       <div class="content-section role-box">
         <h3>My role :</h3>
         <div class="content-inner-box">
-          <p>
-            J'ai travaillé sur la conception et l'implémentation des mécaniques principales.
-          </p>
-          <p>
-            J'ai géré l'intégration des systèmes et assuré la cohérence du projet.
-          </p>
-          <p>
-            J'ai aussi participé aux itérations pour améliorer l'expérience utilisateur.
+          <p> My goal was to create a segment capable of connecting to that of my teammates, and to succeed in communicating with them to achieve global coherence and complementarity between the different segments. I also had to ensure that my segment could be played smoothly and enjoyably, and that the mechanics were well highlighted.
           </p>
         </div>
       </div>
     </div>
-
-    <a href="index.html" class="btn-back">← Return to Portfolio</a>
   </section>
 
   <!-- IMAGES -->
   <section style="padding-top: 2rem;">
     <div class="images-grid">
       <div class="image-card">
-        <div class="image-card-img">[Image 1]</div>
+        <div class="image-card-img"><img src="images/Fallout_Prison.png" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+        <div class="image-card-middle"></div>
         <div class="image-card-content">
-          <h4 class="image-card-title">Image Title 1</h4>
-          <p class="image-card-desc">Description for the first image goes here. This is a sample text that describes the gameplay or feature.</p>
-        </div>
-      </div>
-
-      <div class="image-card">
-        <div class="image-card-img">[Image 2]</div>
-        <div class="image-card-content">
-          <h4 class="image-card-title">Image Title 2</h4>
-          <p class="image-card-desc">Description for the second image goes here. This is a sample text that describes the gameplay or feature.</p>
-        </div>
-      </div>
-
-      <div class="image-card">
-        <div class="image-card-img">[Image 3]</div>
-        <div class="image-card-content">
-          <h4 class="image-card-title">Image Title 3</h4>
-          <p class="image-card-desc">Description for the third image goes here. This is a sample text that describes the gameplay or feature.</p>
-        </div>
-      </div>
-
-      <div class="image-card">
-        <div class="image-card-img">[Image 4]</div>
-        <div class="image-card-content">
-          <h4 class="image-card-title">Image Title 4</h4>
-          <p class="image-card-desc">Description for the fourth image goes here. This is a sample text that describes the gameplay or feature.</p>
+          <h4 class="image-card-title">How I organized the level :</h4>
+          <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.7; margin: 0 0 1rem 0;">The level features three buildings, each with a clear objective and a different way to play:</p>
+          <ul class="image-card-list">
+            <li>A prison that emphasizes stealth ;</li>
+            <li>An abandoned factory oriented towards combat ;</li>
+            <li>An observation tower that allows you to locate yourself from a height ;</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- RETURN BUTTON -->
+  <section style="padding-top: 0;">
+    <a href="index.html" class="btn-back">← Return to Portfolio</a>
+  </section>
+
   <footer style="display:flex; justify-content:space-between; align-items:center; padding:20px 40px; font-size:14px;">
     <div>
       <span>© 2026 Andrew Malaure :</span> |
-      <a href="mentions.html" style="text-decoration:underline;">Mentions légales</a>
+      <a href="#" id="legal-link" style="text-decoration:underline; cursor:pointer;">Mentions légales</a>
     </div>
     <div>
       Contact :
       <a href="mailto:andrew.enguerrand@gmail.com">andrew.enguerrand@gmail.com</a>
     </div>
   </footer>
+
+  <!-- LEGAL MODAL -->
+  <div id="legal-modal" class="legal-modal">
+    <div class="legal-modal-content">
+      <div class="legal-header">
+        <h2>▌ MENTIONS LÉGALES</h2>
+        <button id="close-legal" class="close-btn">✕ CLOSE</button>
+      </div>
+      <div class="legal-body">
+        <div class="legal-section">
+          <h3>INFORMATIONS GÉNÉRALES</h3>
+          <p><strong>Nom :</strong> Andrew Malaure</p>
+          <p><strong>Adresse email :</strong> Disponible via la section contact en bas de page.</p>
+          <p><strong>Type de site :</strong> Portfolio personnel – Game Designer & Developer</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>PROPRIÉTÉ INTELLECTUELLE</h3>
+          <p>Le contenu, le design, les graphiques et tous les éléments visuels de ce site sont la propriété intellectuelle d'Andrew Malaure. Toute reproduction, distribution ou utilisation sans autorisation préalable est interdite.</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>FONDEMENTS JURIDIQUES</h3>
+          <p>Ce site est conforme à la législation française et européenne, notamment au <strong>RGPD</strong> (Règlement Général sur la Protection des Données).</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>DONNÉES PERSONNELLES</h3>
+          <p>Les données collectées via formulaires ou email sont traitées de manière confidentielle et ne seront jamais partagées avec des tiers. Vous disposez d'un droit d'accès, de modification et de suppression de vos données.</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>LIMITATION DE RESPONSABILITÉ</h3>
+          <p>Ce site est fourni "tel quel" sans garantie d'aucune sorte. L'auteur ne peut être tenu responsable des dommages directs ou indirects résultant de l'utilisation du site.</p>
+        </div>
+
+        <div class="legal-section">
+          <h3>CONTACT & DEMANDES LÉGALES</h3>
+          <p>Pour toute question, demande d'accès RGPD ou réclamation, utilisez la section contact en bas de page.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Function to draw connecting lines
@@ -663,6 +868,34 @@
         e.preventDefault();
         startPageTransition(destination);
       });
+    });
+
+    // Modal Mentions Légales
+    const legalModal = document.getElementById('legal-modal');
+    const legalLink = document.getElementById('legal-link');
+    const closeBtn = document.getElementById('close-legal');
+
+    legalLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      legalModal.classList.remove('closing');
+      legalModal.classList.add('active');
+    });
+
+    const closeLegalModal = () => {
+      if (!legalModal.classList.contains('active') || legalModal.classList.contains('closing')) return;
+      legalModal.classList.add('closing');
+      setTimeout(() => {
+        legalModal.classList.remove('active', 'closing');
+      }, 300);
+    };
+
+    closeBtn.addEventListener('click', closeLegalModal);
+
+    // Close modal when clicking outside content
+    legalModal.addEventListener('click', (e) => {
+      if (e.target === legalModal) {
+        closeLegalModal();
+      }
     });
   </script>
 
