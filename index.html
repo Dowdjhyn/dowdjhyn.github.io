@@ -1025,6 +1025,11 @@
       border-bottom-color: var(--timeline-alt);
     }
 
+    .project-card.no-hover {
+      pointer-events: none;
+      cursor: default;
+    }
+
     .project-card .project-skills-box {
       border: 2px solid var(--accent);
       box-shadow: none;
@@ -1685,7 +1690,7 @@
         worked with Unity ! I'm very curious, and I love learning new things. It's always a pleasure to 
         discover new tools and techniques to improve my skills and create better games !
       </p>
-      <a href="#featured" class="hero-cta">Featured Project →</a>
+      <a href="#featured" class="hero-cta">Phare Project →</a>
       <a href="#projects" class="hero-cta">All My Projects →</a>
     </div>
 
@@ -1839,7 +1844,7 @@
   <!-- TOUS LES PROJETS -->
   <section id="projects">
     <p class="section-label reveal">✦ All My Projects</p>
-    <h2 class="section-title reveal">My creations</h2>
+    <h2 class="section-title reveal">My creations <span style="font-size: 0.5em; font-weight: 400; color: var(--muted);">— Click on each project to learn more</span></h2>
 
     <div class="engines-split reveal">
 
@@ -1943,10 +1948,7 @@ During this project, I took on the role of Game Developer and was responsible fo
         </div>
 
         <!-- Projet Unity 02 -->
-        <div class="project-card framed-card" data-href="dungeon-dream.html">
-          <div class="card-emoji">🌌</div>
-          <p class= "card-genre">Image Incoming !</p>
-          <br>
+        <div class="project-card framed-card no-hover">
           <span class="tag">Prop Placement</span>
           <br><br>
           <p class="card-genre">Narrative Level</p>
