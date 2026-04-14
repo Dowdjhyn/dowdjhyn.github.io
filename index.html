@@ -1,6 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <meta name="google-site-verification" content="G3YBlFM_RcVvQv45Rbi0u3G04BZnKffsiK6zbt1mMT0" />
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mon Portfolio – Game Designer</title>
@@ -1025,6 +1028,11 @@
       border-bottom-color: var(--timeline-alt);
     }
 
+    .project-card.no-hover {
+      pointer-events: none;
+      cursor: default;
+    }
+
     .project-card .project-skills-box {
       border: 2px solid var(--accent);
       box-shadow: none;
@@ -1642,6 +1650,7 @@
     <div class="nav-logo">GD // Portfolio</div>
     <div class="nav-links">
       <a href="#about">About me</a>
+      <a href="CV/AndrewMalaure_CV.pdf" target="_blank">CV</a>
       <a href="#featured">Phare Project</a>
       <a href="#projects">All My Projects</a>
 
@@ -1679,12 +1688,12 @@
       </div>
 
       <p class="hero-sub">
-        Hi! I'm 20, and I'm a French game designer and developer based in France.
+        Hi ! I'm 20, and I'm a French game designer and developer based in France.
         I have a strong passion for creating game mechanics, especially with Unreal Engine 5, although I've also 
-        worked with Unity! I'm very curious, and I love learning new things. It's always a pleasure to 
+        worked with Unity ! I'm very curious, and I love learning new things. It's always a pleasure to 
         discover new tools and techniques to improve my skills and create better games !
       </p>
-      <a href="#featured" class="hero-cta">Featured Project →</a>
+      <a href="#featured" class="hero-cta">Phare Project →</a>
       <a href="#projects" class="hero-cta">All My Projects →</a>
     </div>
 
@@ -1733,7 +1742,7 @@
         </div>
         <div class="timeline-content" data-index="3">
           <p class="timeline-year">2025 :</p>
-          <p class="timeline-desc">Longer projects and a newfound passion for programming, especially node-based systems!!</p>
+          <p class="timeline-desc">Longer projects and a newfound passion for programming, especially node-based systems !!</p>
         </div>
         <div class="timeline-content" data-index="4">
           <p class="timeline-year">2026 :</p>
@@ -1827,10 +1836,10 @@
             <br>
             <li><span style="color: rgba(232,255,71,0.6);">✦</span> I built an entire combat system with combo, parry, and dodge mechanics.</li>
             <br>
-            <li><span style="color: rgba(232,255,71,0.6);">✦</span> I'm still working on it! Come back later for more updates.</li>
+            <li><span style="color: rgba(232,255,71,0.6);">✦</span> I'm still working on it ! Come back later for more updates.</li>
           </ul>
         </div>
-        <a href="#" class="btn-outline featured-info-cta">Explore</a>
+        <button id="claymore-btn" class="btn-outline featured-info-cta">Coming Soon</button>
       </div>
     </div>
   </section>
@@ -1838,7 +1847,7 @@
   <!-- TOUS LES PROJETS -->
   <section id="projects">
     <p class="section-label reveal">✦ All My Projects</p>
-    <h2 class="section-title reveal">My creations</h2>
+    <h2 class="section-title reveal">My creations <span style="font-size: 0.5em; font-weight: 400; color: var(--muted);">— Click on each project to learn more</span></h2>
 
     <div class="engines-split reveal">
 
@@ -1942,10 +1951,7 @@ During this project, I took on the role of Game Developer and was responsible fo
         </div>
 
         <!-- Projet Unity 02 -->
-        <div class="project-card framed-card" data-href="dungeon-dream.html">
-          <div class="card-emoji">🌌</div>
-          <p class= "card-genre">Image Incoming !</p>
-          <br>
+        <div class="project-card framed-card no-hover">
           <span class="tag">Prop Placement</span>
           <br><br>
           <p class="card-genre">Narrative Level</p>
@@ -2090,17 +2096,11 @@ During this project, I took on the role of Game Developer and was responsible fo
     const emailTld = 'com';
     const email = `${emailLocal}${at}${emailDomain}${dot}${emailTld}`;
 
-    // Encode email in HTML entities for bot protection
-    const encodeForHTML = (str) => {
-      return str.split('').map(char => `&#${char.charCodeAt(0)};`).join('');
-    };
-    const encodedEmail = encodeForHTML(email);
-
     const bindRevealEmail = (mailLink, revealButton) => {
       if (!mailLink) return;
 
       const revealEmail = () => {
-        mailLink.innerHTML = encodedEmail;
+        mailLink.textContent = email;
         mailLink.setAttribute('href', `mailto:${email}`);
         mailLink.setAttribute('data-revealed', 'true');
 
@@ -2535,6 +2535,20 @@ During this project, I took on the role of Game Developer and was responsible fo
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Claymore button easter egg
+    const claymoreBtn = document.getElementById('claymore-btn');
+    claymoreBtn.addEventListener('click', function() {
+      this.style.transition = 'all 0.4s ease';
+      this.style.background = 'var(--accent2)';
+      this.style.borderColor = 'var(--accent2)';
+      this.style.color = 'var(--bg)';
+      this.style.opacity = '0';
+      setTimeout(() => {
+        this.textContent = "You're very curious and I appreciate it, but come back later :)";
+        this.style.opacity = '1';
+      }, 200);
+    });
   </script>
 
 </body>
