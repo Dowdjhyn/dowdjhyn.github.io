@@ -562,6 +562,27 @@
       from { opacity: 1; transform: scale(1); }
       to { opacity: 0; transform: scale(0.95); }
     }
+
+    .copy-mail-btn {
+      margin-left: 0.55rem;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--accent);
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .copy-mail-btn:hover,
+    .copy-mail-btn:focus-visible {
+      background: var(--accent);
+      color: #0a0a0f;
+      outline: none;
+    }
   </style>
 </head>
 <body>
@@ -658,7 +679,9 @@
     </div>
     <div>
       Contact :
-      <a href="mailto:andrew.enguerrand@gmail.com">andrew.enguerrand@gmail.com</a>
+      <a id="footer-mail-link" href="#" data-revealed="false">Email hidden (click Reveal)</a>
+      <button class="copy-mail-btn" type="button" id="reveal-mail-btn">Reveal</button>
+      <button class="copy-mail-btn" type="button" data-copy-email>Copy</button>
     </div>
   </footer>
 
@@ -876,6 +899,80 @@
       if (e.target === legalModal) {
         closeLegalModal();
       }
+    });
+
+    // Email reveal and copy functionality
+    const footerMailLink = document.getElementById('footer-mail-link');
+    const revealMailBtn = document.getElementById('reveal-mail-btn');
+    const copyMailButtons = document.querySelectorAll('[data-copy-email]');
+    const at = String.fromCharCode(64);
+    const dot = String.fromCharCode(46);
+    const emailLocal = 'andrewmalaure.pro';
+    const emailDomain = 'gmail';
+    const emailTld = 'com';
+    const email = `${emailLocal}${at}${emailDomain}${dot}${emailTld}`;
+
+    // Encode email in HTML entities for bot protection
+    const encodeForHTML = (str) => {
+      return str.split('').map(char => `&#${char.charCodeAt(0)};`).join('');
+    };
+    const encodedEmail = encodeForHTML(email);
+
+    const bindRevealEmail = (mailLink, revealButton) => {
+      if (!mailLink) return;
+
+      const revealEmail = () => {
+        mailLink.innerHTML = encodedEmail;
+        mailLink.setAttribute('href', `mailto:${email}`);
+        mailLink.setAttribute('data-revealed', 'true');
+
+        if (revealButton) {
+          revealButton.textContent = 'Revealed';
+          revealButton.disabled = true;
+        }
+      };
+
+      if (revealButton) {
+        revealButton.addEventListener('click', revealEmail);
+      }
+
+      mailLink.addEventListener('click', (event) => {
+        if (mailLink.getAttribute('data-revealed') === 'true') return;
+        event.preventDefault();
+        revealEmail();
+      });
+    };
+
+    bindRevealEmail(footerMailLink, revealMailBtn);
+
+    copyMailButtons.forEach((copyMailBtn) => {
+      copyMailBtn.addEventListener('click', async () => {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(email);
+          } else {
+            const helper = document.createElement('textarea');
+            helper.value = email;
+            helper.setAttribute('readonly', '');
+            helper.style.position = 'fixed';
+            helper.style.left = '-9999px';
+            document.body.appendChild(helper);
+            helper.select();
+            document.execCommand('copy');
+            document.body.removeChild(helper);
+          }
+
+          copyMailBtn.textContent = 'Copied !';
+          setTimeout(() => {
+            copyMailBtn.textContent = 'Copy';
+          }, 1200);
+        } catch (error) {
+          copyMailBtn.textContent = 'Failed';
+          setTimeout(() => {
+            copyMailBtn.textContent = 'Copy';
+          }, 1200);
+        }
+      });
     });
   </script>
 
